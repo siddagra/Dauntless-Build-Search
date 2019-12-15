@@ -2,6 +2,7 @@
 Best way to find builds for desired Perks/Cells!
 
 - Website: http://dauntlessbuildsearch.ml/
+- Proxy site: https://dauntlessbuildsearch.netlify.com/
 - Proxy site: http://dauntlessbuildsearch.tk/
 - Discord: https://discord.gg/we8tkk
 
