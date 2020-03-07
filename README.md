@@ -19,9 +19,6 @@ Giving us feedback, feature requests, bug-reports, or ask questions at Dauntless
 
 Support us by sharing this website on Dauntless Reddit and with your friends and upvoting original post on Reddit.
 
-Lastly, consider donating if you liked the website.
-This may help facilitate a .com domain for SEO and more visibility, and potentially, better hosting services for additional server-side features.
-
 Thank you!
 
 ### 😄
