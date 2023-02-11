@@ -2,6 +2,7 @@
 Best way to find builds for desired Perks/Cells!
 
 - Website: http://dauntlessbuildsearch.tk/
+- Backup site: https://siddagra.github.io/Dauntless-Build-Search-Backup/
 - Proxy site: https://dauntlessbuildsearch.netlify.app/
 - Proxy site: https://siddagra.github.io/Dauntless-Build-Search/
 - Proxy site: https://siddagra.github.io/
