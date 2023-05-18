@@ -18,14 +18,15 @@
    <link href=Index.min.css rel=stylesheet>
    <script src=js/database.min.js> </script>
    <title>Dauntless Build Search</title>
+<script>
+</script>
 </head>
+<script>
+</script>
 <body style=display:flex;flex-direction:column;align-items:center>
-<div style="color:white; font-size:20px;">
-Note: Check Legendary Weapons in Filters to make all weapon cells Prismatic!
-</div>
    <div style=display:flex;flex-direction:row;width:90%;margin:10px>
       <div class=MainBox id=" Main Box">
-         <a href=https://siddagra.github.io/Dauntless-Build-Search><img src=assets/logo2.png style=height:90px;width:auto></a>
+         <a href=https://siddagra.github.io/Dauntless-Build-Search-Backup/><img src=assets/logo2.png style=height:90px;width:auto></a>
          <div style=border-radius:5px;display:flex;flex-direction:column;align-items:center;width:100%>
             <ul class="tabs transparent">
                <li class="col s3 tab"><a href=#Perks-Tab>Perks</a></li>
@@ -34,16 +35,21 @@ Note: Check Legendary Weapons in Filters to make all weapon cells Prismatic!
                <li class="col s3 tab"><a href=#Random-Build-Tab>Random Build</a></li>
                <li class="col s3 tab"><a href=#Support-Tab>Support Us</a></li>
             </ul>
-            <div id=Perks-Tab>
+            <div id=Perks-Tab style="width:100%">
+               <label>
+                  <input type="checkbox" class="LockCheckbox filled-in"  id="LegendaryWeapon">
+                  <span style="margin-left:15px; margin-top:10px;">
+                     Legendary Weapons
+                  </span>
+               </label>
                <div class=PerkTab>
                   <script src=js/DocumentWrite_PerkButtons.min.js></script>
                </div>
             </div>
-            <div class=PerkTab id=Filters-Tab>
-               <script src=js/DocumentWrite_Locks.min.js> </script>
-               <div style="display:flex; flex-direction: column; margin-top:20px">
-                  <label><input type="checkbox" class="LockCheckbox filled-in" id="LegendaryWeapon"><span>Legendary
-                        Weapons</span></label></div>
+            <div class="PerkTab" id="Filters-Tab">
+               <div class="FilterTab">
+              <script src=js/DocumentWrite_Locks.min.js> </script>
+              </div>
             </div>
             <div class=whiteText id=Builds-Tab>
                <h4><a href=https://docs.google.com/spreadsheets/d/1-I4LQ_8uNqV9LuybXhz2wjmcPeTNNGWRZ-kFjsckwtk
@@ -71,17 +77,22 @@ Note: Check Legendary Weapons in Filters to make all weapon cells Prismatic!
                <h4>😄</h4>
             </div>
 
-            <a href=https://siddagra.github.io/Dauntless-Build-Search class="btn waves-effect waves-light"
+            <a href=https://siddagra.github.io/Dauntless-Build-Search-Backup/ class="btn waves-effect waves-light"
                style=margin:5px;background-color:grey!important>New Build</a>
          </div>
          <table class=PossibleBuildsTable id="Builds Table">
-            <thead>
+            <thead style="
+                position: sticky;
+                top: 0px;
+                background-color: black;
+            ">
                <tr>
                   <th>Head</th>
                   <th>Torso</th>
                   <th>Arms</th>
                   <th>Legs</th>
                   <th>Weapon</th>
+                  <th></th>
             <tbody id="Builds Table Body"></tbody>
             </tr>
             </thead>
@@ -92,7 +103,7 @@ Note: Check Legendary Weapons in Filters to make all weapon cells Prismatic!
       </div>
    </div>
    <div class=footer>
-      <div>Website version: <b>4.8.3</b> &nbsp;&nbsp;&nbsp;&nbsp; Dauntless version: <b>1.5.0</b></div>
+      <div>Website version: <b>4.8.3</b> &nbsp;&nbsp;&nbsp;&nbsp; Dauntless version: <b>1.13.1</b></div>
       <div>Check us out/ask questions at:</div>
       <div><a
             href=https://www.reddit.com/r/dauntless/comments/c344rl/dauntless_reverse_engineering_build_optimizer />Reddit
