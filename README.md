@@ -1,4 +1,4 @@
-# Dauntless Builder (Legacy)
+# Dauntless Builder Reforged
 
 This is the repository of Dauntless Builder from a time before "Dauntless Awakened" released, please head over to the new repository here:
 
