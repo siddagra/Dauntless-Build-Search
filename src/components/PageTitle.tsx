@@ -35,7 +35,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, hidden }) => {
                     property="og:description"
                 />
                 <meta
-                    content={"https://www.dauntless-builder.com/assets/icon.png"}
+                    content={"https://reforged.dauntless-builder.com/assets/icon.png"}
                     property="og:image"
                 />
             </Helmet>

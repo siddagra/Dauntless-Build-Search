@@ -5,7 +5,7 @@
 Builds are not stored on a server, but instead stored in your address bar. If we take a look at the following
 
 Dauntless Builder
-URL: `https://www.dauntless-builder.com/b/axfWTxZIOCKVimPCjcWtgT0Sm5I3C08fdPcpCE2Urbc2CjmHzjhnCvOc7SPNtw`
+URL: `https://reforged.dauntless-builder.com/b/axfWTxZIOCKVimPCjcWtgT0Sm5I3C08fdPcpCE2Urbc2CjmHzjhnCvOc7SPNtw`
 
 You can see a very long cryptic string at the end in this case
 **axfWTxZIOCKVimPCjcWtgT0Sm5I3C08fdPcpCE2Urbc2CjmHzjhnCvOc7SPNtw**,
@@ -135,7 +135,7 @@ To expand on our earlier example:
 
 // I want to know what the name of the weapon is... how do i do this?
 // First we need to pull the names.json data from Dauntless Builder
-const namesMap = await fetch("https://www.dauntless-builder.com/map/names.json");
+const namesMap = await fetch("https://reforged.dauntless-builder.com/map/names.json");
 
 if (!namesMap.ok) {
     throw Error("TODO: Something went wrong, but I can't be bothered to fix this rn");
@@ -155,13 +155,13 @@ console.log("Weapon Name:", namesJson["Weapons"][weaponId]); // => Incinerator's
 
 ### Using the data
 
-The Dauntless Builder item data is available at https://www.dauntless-builder.com/data.json
+The Dauntless Builder item data is available at https://reforged.dauntless-builder.com/data.json
 
 In this example we'll continue the example from the last section:
 
 ```ts
 // first we'll fetch the data
-const itemData = await fetch("https://www.dauntless-builder.com/data.json");
+const itemData = await fetch("https://reforged.dauntless-builder.com/data.json");
 
 if (!itemData.ok) {
     throw Error("TODO: Something went wrong, but I can't be bothered to fix this rn");
@@ -206,7 +206,7 @@ const output = {
 
 ### Checking for changes
 
-Under https://www.dauntless-builder.com/meta.json you can also find out when was the last time the data
+Under https://reforged.dauntless-builder.com/meta.json you can also find out when was the last time the data
 set was generated (build_time) and an md5 hash to check against to see if your data is different.
 
 Here is an example of this file:
@@ -247,7 +247,7 @@ const newBuild = [
 const buildId = hashids.encode(newBuild);
 
 // attach it after /b/...
-const linkToDauntlessBuilder = `https://www.dauntless-builder.com/b/${buildId}`;
+const linkToDauntlessBuilder = `https://reforged.dauntless-builder.com/b/${buildId}`;
 
 // And thats pretty much it.
 console.log(linkToDauntlessBuilder);
@@ -258,7 +258,7 @@ console.log(linkToDauntlessBuilder);
 To access the localized strings you have to make a request against:
 
 ```bash
-GET https://www.dauntless-builder.com/i18n/${LANGUAGE}.json
+GET https://reforged.dauntless-builder.com/i18n/${LANGUAGE}.json
 ```
 
 Notice that you need to replace LANGUAGE with one of the language short codes defined in src/i18n.ts

@@ -14,19 +14,19 @@ const metaBuildPriority = 0.5;
 const staticPaths: SitemapEntry[] = [
     {
         priority: 1.0,
-        url: "https://www.dauntless-builder.com/",
+        url: "https://reforged.dauntless-builder.com/",
     },
     {
         priority: 0.7,
-        url: "https://www.dauntless-builder.com/b/new/",
+        url: "https://reforged.dauntless-builder.com/b/new/",
     },
     {
         priority: 0.7,
-        url: "https://www.dauntless-builder.com/b/finder/",
+        url: "https://reforged.dauntless-builder.com/b/finder/",
     },
     {
         priority: 0.7,
-        url: "https://www.dauntless-builder.com/b/meta/",
+        url: "https://reforged.dauntless-builder.com/b/meta/",
     },
 ];
 
@@ -65,7 +65,7 @@ export class SitemapStep extends WithStepLogger implements Step {
             .forEach(build => {
                 entries.push({
                     priority: metaBuildPriority,
-                    url: `https://www.dauntless-builder.com/b/${build}`,
+                    url: `https://reforged.dauntless-builder.com/b/${build}`,
                 });
             });
 
