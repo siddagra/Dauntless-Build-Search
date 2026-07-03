@@ -99,6 +99,7 @@
         "queue-promise": "^2.2.1",
         "sort-json": "^2.0.1",
         "ts-jest": "^29",
+        "ts-node": "^10.9.2",
         "tsx": "^4.19.0",
         "typescript": "^5.5.4",
         "vite": "^5.4.2",
