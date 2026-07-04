@@ -2,7 +2,7 @@
     "name": "dauntless-builder",
     "version": "2.0.0",
     "type": "module",
-    "repository": "git@github.com:atomicptr/dauntless-builder",
+    "repository": "git@github.com:atomicptr/dauntless-builder-reforged",
     "author": "Christopher Kaster <me@atomicptr.de>",
     "license": "AGPLv3",
     "private": true,

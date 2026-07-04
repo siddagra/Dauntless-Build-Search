@@ -8,7 +8,7 @@ This is the repository of Dauntless Builder from a time before "Dauntless Awaken
 
 # dauntless-builder
 
-[![Build Status](https://github.com/atomicptr/dauntless-builder/actions/workflows/tests.yml/badge.svg)](https://github.com/atomicptr/dauntless-builder/actions/workflows/tests.yml)
+[![Build Status](https://github.com/atomicptr/dauntless-builder-reforged/actions/workflows/tests.yml/badge.svg)](https://github.com/atomicptr/dauntless-builder-reforged/actions/workflows/tests.yml)
 [![Crowdin](https://badges.crowdin.net/dauntless-builder/localized.svg)](https://crowdin.com/project/dauntless-builder)
 
 <p align="center">

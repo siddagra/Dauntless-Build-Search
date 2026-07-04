@@ -36,18 +36,15 @@ export default defineConfig(({ command, mode }) => {
                     "robots.txt",
                 ],
                 manifest: {
-                    categories: [
-                        "games",
-                        "utilities"
-                    ],
+                    categories: ["games", "utilities"],
                     screenshots: [
                         {
                             label: "Screenshot of an build in Dauntless Builder",
                             platform: "wide",
                             sizes: "1920x1080",
-                            src: "https://raw.githubusercontent.com/atomicptr/dauntless-builder/master/docs/assets/app-screenshot.png",
-                            type: "image/png"
-                        }
+                            src: "https://raw.githubusercontent.com/atomicptr/dauntless-builder-reforged/master/docs/assets/app-screenshot.png",
+                            type: "image/png",
+                        },
                     ],
                     shortcuts: [
                         {
@@ -57,18 +54,20 @@ export default defineConfig(({ command, mode }) => {
                             url: "/b/new",
                         },
                         {
-                            description: "Know what perks you want? Find a fitting build right here!",
+                            description:
+                                "Know what perks you want? Find a fitting build right here!",
                             icons: [],
                             name: "Build Finder",
                             url: "/b/finder",
                         },
                         {
-                            description: "The best builds made by the community!",
+                            description:
+                                "The best builds made by the community!",
                             icons: [],
                             name: "Meta Builds",
                             url: "/b/meta",
-                        }
-                    ]
+                        },
+                    ],
                 },
                 registerType: "autoUpdate",
                 workbox: {
@@ -76,19 +75,20 @@ export default defineConfig(({ command, mode }) => {
                     clientsClaim: true,
                     maximumFileSizeToCacheInBytes,
                     sourcemap: isDevMode,
-                }
+                },
             }),
             command === "build"
                 ? ViteFaviconsPlugin({
-                    favicons: {
-                        appDescription: "Create and share Dauntless builds with your friends!",
-                        appName: "Dauntless Builder",
-                        appleStatusBarStyle: "black-translucent",
-                        background: "#121212",
-                        theme_color: "#272727",
-                    },
-                    logo: "public/assets/icon.png",
-                })
+                      favicons: {
+                          appDescription:
+                              "Create and share Dauntless builds with your friends!",
+                          appName: "Dauntless Builder",
+                          appleStatusBarStyle: "black-translucent",
+                          background: "#121212",
+                          theme_color: "#272727",
+                      },
+                      logo: "public/assets/icon.png",
+                  })
                 : undefined,
         ],
         resolve: {

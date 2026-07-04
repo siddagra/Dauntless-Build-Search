@@ -6,7 +6,9 @@ import { GenericItem } from "@src/components/GenericItemSelectDialog";
 import { Armour } from "@src/data/Armour";
 import { findItem } from "@src/data/BuildModel";
 import { Cell, CellType } from "@src/data/Cell";
-import dauntlessBuilderData, { DauntlessBuilderDataIndex } from "@src/data/Data";
+import dauntlessBuilderData, {
+    DauntlessBuilderDataIndex,
+} from "@src/data/Data";
 import { ElementalType } from "@src/data/ElementalType";
 import { ItemType, itemTypeData } from "@src/data/ItemType";
 import { Lantern } from "@src/data/Lantern";
@@ -26,7 +28,8 @@ const data = dauntlessBuilderData;
 
 const chromeUserAgent =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36";
-const remoteMapUrl = "https://raw.githubusercontent.com/atomicptr/dauntless-builder/master/src/json/names.json";
+const remoteMapUrl =
+    "https://raw.githubusercontent.com/atomicptr/dauntless-builder-reforged/master/src/json/names.json";
 
 const fail = (message: string): never => {
     throw new Error(message);
@@ -49,13 +52,15 @@ describe(".map/names.json integrity", () => {
         for (const mapName of Object.keys(remoteMap)) {
             const map = remoteMap[mapName];
 
-            Object.keys(map).forEach(key => {
+            Object.keys(map).forEach((key) => {
                 if (!(mapName in localMap)) {
                     fail(`${mapName} is not in local map`);
                 }
 
                 try {
-                    expect(map[key]).toBe(localMap[mapName as NamesMapType][key]);
+                    expect(map[key]).toBe(
+                        localMap[mapName as NamesMapType][key],
+                    );
                 } catch (_e) {
                     fail(
                         `Key: ${mapName}.${key} should be the same value. Expected ${map[key]} found ${
@@ -82,11 +87,18 @@ describe(".map/names.json integrity", () => {
         }
     });
 
-    const checkIfItemIsInDataFor = (field: string, checkFunction?: (name: string) => boolean) => {
+    const checkIfItemIsInDataFor = (
+        field: string,
+        checkFunction?: (name: string) => boolean,
+    ) => {
         if (!checkFunction) {
-            checkFunction = itemName => {
+            checkFunction = (itemName) => {
                 for (const mapName of Object.keys(localMap)) {
-                    if (Object.values(localMap[mapName as NamesMapType]).indexOf(itemName) > -1) {
+                    if (
+                        Object.values(
+                            localMap[mapName as NamesMapType],
+                        ).indexOf(itemName) > -1
+                    ) {
                         return true;
                     }
                 }
@@ -98,7 +110,9 @@ describe(".map/names.json integrity", () => {
         return () => {
             for (const itemName in data[field as DauntlessBuilderDataIndex]) {
                 try {
-                    expect((checkFunction as (name: string) => boolean)(itemName)).toBeTruthy();
+                    expect(
+                        (checkFunction as (name: string) => boolean)(itemName),
+                    ).toBeTruthy();
                 } catch (_e) {
                     fail(`${itemName} is not in the map, rebuilt map to fix.`);
                 }
@@ -112,9 +126,10 @@ describe(".map/names.json integrity", () => {
     it("should contain every perk", checkIfItemIsInDataFor("perks"));
     it(
         "should contain every cell",
-        checkIfItemIsInDataFor("cells", cellName =>
+        checkIfItemIsInDataFor("cells", (cellName) =>
             Object.keys(data.cells[cellName].variants).every(
-                variant => Object.values(localMap["Cells"]).indexOf(variant) > -1,
+                (variant) =>
+                    Object.values(localMap["Cells"]).indexOf(variant) > -1,
             ),
         ),
     );
@@ -135,8 +150,13 @@ describe("data.json integrity", () => {
         return dataWrapper;
     };
 
-    const checkIconsFor = (field: string, alternativeIconFieldName?: string) => {
-        const iconFieldName = alternativeIconFieldName ? alternativeIconFieldName : "icon";
+    const checkIconsFor = (
+        field: string,
+        alternativeIconFieldName?: string,
+    ) => {
+        const iconFieldName = alternativeIconFieldName
+            ? alternativeIconFieldName
+            : "icon";
         return () => {
             const dataWrapper = mineDataFromField(data, field);
 
@@ -144,12 +164,17 @@ describe("data.json integrity", () => {
                 const item = dataWrapper[itemName];
 
                 if (item.icon) {
-                    const iconPath = path.join(process.cwd(), item[iconFieldName]);
+                    const iconPath = path.join(
+                        process.cwd(),
+                        item[iconFieldName],
+                    );
 
                     try {
                         expect(fs.existsSync(iconPath)).toBeTruthy();
                     } catch (_e) {
-                        fail(`${item.name}'s icon doesn't exist: "${iconPath}".`);
+                        fail(
+                            `${item.name}'s icon doesn't exist: "${iconPath}".`,
+                        );
                     }
                 }
             }
@@ -157,29 +182,80 @@ describe("data.json integrity", () => {
     };
 
     it("Weapons should not have invalid icons", checkIconsFor("weapons"));
-    it("Axe Mods should not have invalid icons", checkIconsFor("parts.axe.mods"));
-    it("Axe Specials should not have invalid icons", checkIconsFor("parts.axe.specials"));
-    it("Chain Blades Mods should not have invalid icons", checkIconsFor("parts.chainblades.mods"));
-    it("Chain Blades Specials should not have invalid icons", checkIconsFor("parts.chainblades.specials"));
-    it("Hammer Mods should not have invalid icons", checkIconsFor("parts.hammer.mods"));
-    it("Hammer Specials should not have invalid icons", checkIconsFor("parts.hammer.specials"));
-    it("Sword Mods should not have invalid icons", checkIconsFor("parts.sword.mods"));
-    it("Sword Specials should not have invalid icons", checkIconsFor("parts.sword.specials"));
-    it("War Pike Mods should not have invalid icons", checkIconsFor("parts.warpike.mods"));
-    it("War Pike Specials should not have invalid icons", checkIconsFor("parts.warpike.specials"));
-    it("Aether Striker Mods should not have invalid icons", checkIconsFor("parts.aetherstrikers.mods"));
-    it("Aether Striker Specials should not have invalid icons", checkIconsFor("parts.aetherstrikers.specials"));
+    it(
+        "Axe Mods should not have invalid icons",
+        checkIconsFor("parts.axe.mods"),
+    );
+    it(
+        "Axe Specials should not have invalid icons",
+        checkIconsFor("parts.axe.specials"),
+    );
+    it(
+        "Chain Blades Mods should not have invalid icons",
+        checkIconsFor("parts.chainblades.mods"),
+    );
+    it(
+        "Chain Blades Specials should not have invalid icons",
+        checkIconsFor("parts.chainblades.specials"),
+    );
+    it(
+        "Hammer Mods should not have invalid icons",
+        checkIconsFor("parts.hammer.mods"),
+    );
+    it(
+        "Hammer Specials should not have invalid icons",
+        checkIconsFor("parts.hammer.specials"),
+    );
+    it(
+        "Sword Mods should not have invalid icons",
+        checkIconsFor("parts.sword.mods"),
+    );
+    it(
+        "Sword Specials should not have invalid icons",
+        checkIconsFor("parts.sword.specials"),
+    );
+    it(
+        "War Pike Mods should not have invalid icons",
+        checkIconsFor("parts.warpike.mods"),
+    );
+    it(
+        "War Pike Specials should not have invalid icons",
+        checkIconsFor("parts.warpike.specials"),
+    );
+    it(
+        "Aether Striker Mods should not have invalid icons",
+        checkIconsFor("parts.aetherstrikers.mods"),
+    );
+    it(
+        "Aether Striker Specials should not have invalid icons",
+        checkIconsFor("parts.aetherstrikers.specials"),
+    );
     it("Armours should not have invalid icons", checkIconsFor("armours"));
-    it("Repeater Chambers should not have invalid icons", checkIconsFor("parts.repeater.chambers"));
-    it("Repeater Grips should not have invalid icons", checkIconsFor("parts.repeater.grips"));
-    it("Repeater Mods should not have invalid icons", checkIconsFor("parts.repeater.mods"));
+    it(
+        "Repeater Chambers should not have invalid icons",
+        checkIconsFor("parts.repeater.chambers"),
+    );
+    it(
+        "Repeater Grips should not have invalid icons",
+        checkIconsFor("parts.repeater.grips"),
+    );
+    it(
+        "Repeater Mods should not have invalid icons",
+        checkIconsFor("parts.repeater.mods"),
+    );
     it("Omnicells should not have invalid icons", checkIconsFor("omnicells"));
-    it("Omnicells should not have ability invalid icons", checkIconsFor("omnicells", "ability_icon"));
+    it(
+        "Omnicells should not have ability invalid icons",
+        checkIconsFor("omnicells", "ability_icon"),
+    );
 
     const checkCellSlotsFor = (itemType: ItemType) => {
         return () => {
             for (const itemName in itemTypeData(itemType)) {
-                const item = findItem(itemType, itemName) as Weapon | Armour | Lantern;
+                const item = findItem(itemType, itemName) as
+                    | Weapon
+                    | Armour
+                    | Lantern;
 
                 let cells = item.cells;
 
@@ -210,9 +286,18 @@ describe("data.json integrity", () => {
         };
     };
 
-    it("Weapons should not have invalid cell slots", checkCellSlotsFor(ItemType.Weapon));
-    it("Armours should not have invalid cell slots", checkCellSlotsFor(ItemType.Head));
-    it("Lanterns should not have invalid cell slots", checkCellSlotsFor(ItemType.Lantern));
+    it(
+        "Weapons should not have invalid cell slots",
+        checkCellSlotsFor(ItemType.Weapon),
+    );
+    it(
+        "Armours should not have invalid cell slots",
+        checkCellSlotsFor(ItemType.Head),
+    );
+    it(
+        "Lanterns should not have invalid cell slots",
+        checkCellSlotsFor(ItemType.Lantern),
+    );
 
     const checkElementsFor = (field: string) => {
         return () => {
@@ -231,7 +316,7 @@ describe("data.json integrity", () => {
                     itemFields = ["strength", "weakness"];
                 }
 
-                const values = itemFields.map(field => item[field]);
+                const values = itemFields.map((field) => item[field]);
 
                 for (const value of values) {
                     if (value) {
@@ -261,7 +346,10 @@ describe("data.json integrity", () => {
     ) => {
         return () => {
             for (const itemName in itemTypeData(itemType)) {
-                const item = findItem(itemType, itemName) as { name: string; perks: PerkValue[] };
+                const item = findItem(itemType, itemName) as {
+                    name: string;
+                    perks: PerkValue[];
+                };
 
                 const perks = getPerksFunc(item);
 
@@ -278,17 +366,21 @@ describe("data.json integrity", () => {
 
     it(
         "Weapons should not have invalid perks",
-        checkPerksFor(ItemType.Weapon, item => (item.perks ? item.perks.map(p => p.name) : [])),
+        checkPerksFor(ItemType.Weapon, (item) =>
+            item.perks ? item.perks.map((p) => p.name) : [],
+        ),
     );
 
     it(
         "Armours should not have invalid perks",
-        checkPerksFor(ItemType.Head, item => (item.perks ? item.perks.map(p => p.name) : [])),
+        checkPerksFor(ItemType.Head, (item) =>
+            item.perks ? item.perks.map((p) => p.name) : [],
+        ),
     );
 
     it(
         "Cells should not have invalid perks",
-        checkPerksFor(ItemType.Cell, item => {
+        checkPerksFor(ItemType.Cell, (item) => {
             const cell = item as unknown as Cell;
 
             const perks = [];
@@ -304,15 +396,26 @@ describe("data.json integrity", () => {
         }),
     );
 
-    const checkIfHasValidSchema = (field: string, seperateSchemaField: string | null = null) => {
+    const checkIfHasValidSchema = (
+        field: string,
+        seperateSchemaField: string | null = null,
+    ) => {
         const schemaField = seperateSchemaField ? seperateSchemaField : field;
 
         const pathParts = schemaField.split(".");
 
         // last part is filename
-        pathParts[pathParts.length - 1] = pathParts[pathParts.length - 1] + ".json";
+        pathParts[pathParts.length - 1] =
+            pathParts[pathParts.length - 1] + ".json";
 
-        const schemaPath = path.join(__dirname, "..", "..", "data", "_schemas", ...pathParts);
+        const schemaPath = path.join(
+            __dirname,
+            "..",
+            "..",
+            "data",
+            "_schemas",
+            ...pathParts,
+        );
 
         if (!fs.existsSync(schemaPath)) {
             return () => {
@@ -348,14 +451,38 @@ describe("data.json integrity", () => {
         }
     };
 
-    it("Weapons format should have a valid schema", checkIfHasValidSchema("weapons"));
-    it("Armours format should have a valid schema", checkIfHasValidSchema("armours"));
-    it("Lanterns format should have a valid schema", checkIfHasValidSchema("lanterns"));
-    it("Cells format should have a valid schema", checkIfHasValidSchema("cells"));
-    it("Perks format should have a valid schema", checkIfHasValidSchema("perks"));
-    it("Repeater Chambers format should have a valid schema", checkIfHasValidSchema("parts.repeater.chambers"));
-    it("Repeater Grips format should have a valid schema", checkIfHasValidSchema("parts.repeater.grips"));
-    it("Omnicells format should have a valid schema", checkIfHasValidSchema("omnicells"));
+    it(
+        "Weapons format should have a valid schema",
+        checkIfHasValidSchema("weapons"),
+    );
+    it(
+        "Armours format should have a valid schema",
+        checkIfHasValidSchema("armours"),
+    );
+    it(
+        "Lanterns format should have a valid schema",
+        checkIfHasValidSchema("lanterns"),
+    );
+    it(
+        "Cells format should have a valid schema",
+        checkIfHasValidSchema("cells"),
+    );
+    it(
+        "Perks format should have a valid schema",
+        checkIfHasValidSchema("perks"),
+    );
+    it(
+        "Repeater Chambers format should have a valid schema",
+        checkIfHasValidSchema("parts.repeater.chambers"),
+    );
+    it(
+        "Repeater Grips format should have a valid schema",
+        checkIfHasValidSchema("parts.repeater.grips"),
+    );
+    it(
+        "Omnicells format should have a valid schema",
+        checkIfHasValidSchema("omnicells"),
+    );
 
     // validate specials on all weapons
     it(
@@ -364,11 +491,17 @@ describe("data.json integrity", () => {
     );
     it(
         "Chain Blades Specials format should have a valid schema",
-        checkIfHasValidSchema("parts.chainblades.specials", "parts.generic.specials"),
+        checkIfHasValidSchema(
+            "parts.chainblades.specials",
+            "parts.generic.specials",
+        ),
     );
     it(
         "Hammer Specials format should have a valid schema",
-        checkIfHasValidSchema("parts.hammer.specials", "parts.generic.specials"),
+        checkIfHasValidSchema(
+            "parts.hammer.specials",
+            "parts.generic.specials",
+        ),
     );
     it(
         "Swords Specials format should have a valid schema",
@@ -376,15 +509,24 @@ describe("data.json integrity", () => {
     );
     it(
         "War Pike Specials format should have a valid schema",
-        checkIfHasValidSchema("parts.warpike.specials", "parts.generic.specials"),
+        checkIfHasValidSchema(
+            "parts.warpike.specials",
+            "parts.generic.specials",
+        ),
     );
     it(
         "Aether Striker Specials format should have a valid schema",
-        checkIfHasValidSchema("parts.aetherstrikers.specials", "parts.generic.specials"),
+        checkIfHasValidSchema(
+            "parts.aetherstrikers.specials",
+            "parts.generic.specials",
+        ),
     );
 
     // validate mods on all weapons
-    it("Axe Mods format should have a valid schema", checkIfHasValidSchema("parts.axe.mods", "parts.generic.mods"));
+    it(
+        "Axe Mods format should have a valid schema",
+        checkIfHasValidSchema("parts.axe.mods", "parts.generic.mods"),
+    );
     it(
         "Chain Blades Mods format should have a valid schema",
         checkIfHasValidSchema("parts.chainblades.mods", "parts.generic.mods"),
@@ -403,7 +545,10 @@ describe("data.json integrity", () => {
     );
     it(
         "Aether Striker Mods format should have a valid schema",
-        checkIfHasValidSchema("parts.aetherstrikers.mods", "parts.generic.mods"),
+        checkIfHasValidSchema(
+            "parts.aetherstrikers.mods",
+            "parts.generic.mods",
+        ),
     );
     it(
         "Repeater Mods format should have a valid schema",
@@ -418,7 +563,11 @@ describe("data.json integrity", () => {
             return res.length > 0 ? res : null;
         };
 
-        const checkForVariables = (item: GenericItem, text: string | string[], values: object) => {
+        const checkForVariables = (
+            item: GenericItem,
+            text: string | string[],
+            values: object,
+        ) => {
             text = Array.isArray(text) ? text.join(" ") : text;
 
             const varsInText = extractVars(text);
@@ -433,9 +582,12 @@ describe("data.json integrity", () => {
                     continue;
                 }
 
-                const isDefined = varsInText?.find(v => v[1] === variableKey) !== undefined;
+                const isDefined =
+                    varsInText?.find((v) => v[1] === variableKey) !== undefined;
                 if (!isDefined) {
-                    fail(`${item.name} contains undefined variable: ${variableKey}`);
+                    fail(
+                        `${item.name} contains undefined variable: ${variableKey}`,
+                    );
                 }
             }
 
@@ -446,9 +598,13 @@ describe("data.json integrity", () => {
                     continue;
                 }
 
-                const isDefined = Object.keys(values).find(valName => valName === varName);
+                const isDefined = Object.keys(values).find(
+                    (valName) => valName === varName,
+                );
                 if (!isDefined) {
-                    fail(`${item.name} contains undefined variable: ${varName}`);
+                    fail(
+                        `${item.name} contains undefined variable: ${varName}`,
+                    );
                 }
             }
         };
@@ -460,64 +616,147 @@ describe("data.json integrity", () => {
                 const item = dataWrapper[itemName];
 
                 // weapon / armor
-                if ("unique_effects" in item && Array.isArray(item.unique_effects)) {
+                if (
+                    "unique_effects" in item &&
+                    Array.isArray(item.unique_effects)
+                ) {
                     for (const ue of item.unique_effects) {
-                        checkForVariables(item, ue.description, ue.values ?? {});
+                        checkForVariables(
+                            item,
+                            ue.description,
+                            ue.values ?? {},
+                        );
                     }
                 }
 
                 // perks
                 if ("effects" in item) {
-                    for (const effect of Object.values((item as Perk).effects)) {
-                        checkForVariables(item, effect.description, effect.values ?? {});
+                    for (const effect of Object.values(
+                        (item as Perk).effects,
+                    )) {
+                        checkForVariables(
+                            item,
+                            effect.description,
+                            effect.values ?? {},
+                        );
                     }
                 }
 
                 // parts
                 if ("part_effect" in item) {
-                    checkForVariables(item, item.part_effect, item.values ?? {});
+                    checkForVariables(
+                        item,
+                        item.part_effect,
+                        item.values ?? {},
+                    );
                 }
 
                 // omnicells
                 if ("active" in item && "passive" in item) {
-                    checkForVariables(item, item.active, item.active_values ?? {});
-                    checkForVariables(item, item.passive, item.passive_values ?? {});
+                    checkForVariables(
+                        item,
+                        item.active,
+                        item.active_values ?? {},
+                    );
+                    checkForVariables(
+                        item,
+                        item.passive,
+                        item.passive_values ?? {},
+                    );
                 }
 
                 // lantern
                 if ("lantern_ability" in item) {
-                    checkForVariables(item, item.lantern_ability?.hold ?? "", item.values ?? {});
+                    checkForVariables(
+                        item,
+                        item.lantern_ability?.hold ?? "",
+                        item.values ?? {},
+                    );
                 }
             }
         };
     };
 
-    it("Weapons should not have unused variables", checkIfAllVariablesAreUsed("weapons"));
-    it("Armour should not have unused variables", checkIfAllVariablesAreUsed("armours"));
-    it("Perks should not have unused variables", checkIfAllVariablesAreUsed("perks"));
+    it(
+        "Weapons should not have unused variables",
+        checkIfAllVariablesAreUsed("weapons"),
+    );
+    it(
+        "Armour should not have unused variables",
+        checkIfAllVariablesAreUsed("armours"),
+    );
+    it(
+        "Perks should not have unused variables",
+        checkIfAllVariablesAreUsed("perks"),
+    );
 
-    it("Axe Mods should not have unused variables", checkIfAllVariablesAreUsed("parts.axe.mods"));
-    it("Axe Specials should not have unused variables", checkIfAllVariablesAreUsed("parts.axe.specials"));
-    it("Chain Blades Mods should not have unused variables", checkIfAllVariablesAreUsed("parts.chainblades.mods"));
+    it(
+        "Axe Mods should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.axe.mods"),
+    );
+    it(
+        "Axe Specials should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.axe.specials"),
+    );
+    it(
+        "Chain Blades Mods should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.chainblades.mods"),
+    );
     it(
         "Chain Blades Specials should not have unused variables",
         checkIfAllVariablesAreUsed("parts.chainblades.specials"),
     );
-    it("Hammer Mods should not have unused variables", checkIfAllVariablesAreUsed("parts.hammer.mods"));
-    it("Hammer Specials should not have unused variables", checkIfAllVariablesAreUsed("parts.hammer.specials"));
-    it("Swords Mods should not have unused variables", checkIfAllVariablesAreUsed("parts.sword.mods"));
-    it("Swords Specials should not have unused variables", checkIfAllVariablesAreUsed("parts.sword.specials"));
-    it("War Pike Mods should not have unused variables", checkIfAllVariablesAreUsed("parts.warpike.mods"));
-    it("War Pike Specials should not have unused variables", checkIfAllVariablesAreUsed("parts.warpike.specials"));
-    it("Aether Striker Mods should not have unused variables", checkIfAllVariablesAreUsed("parts.aetherstrikers.mods"));
+    it(
+        "Hammer Mods should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.hammer.mods"),
+    );
+    it(
+        "Hammer Specials should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.hammer.specials"),
+    );
+    it(
+        "Swords Mods should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.sword.mods"),
+    );
+    it(
+        "Swords Specials should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.sword.specials"),
+    );
+    it(
+        "War Pike Mods should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.warpike.mods"),
+    );
+    it(
+        "War Pike Specials should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.warpike.specials"),
+    );
+    it(
+        "Aether Striker Mods should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.aetherstrikers.mods"),
+    );
     it(
         "Aether Striker Specials should not have unused variables",
         checkIfAllVariablesAreUsed("parts.aetherstrikers.specials"),
     );
-    it("Repeater Mods should not have unused variables", checkIfAllVariablesAreUsed("parts.repeater.mods"));
-    it("Repeater Grips should not have unused variables", checkIfAllVariablesAreUsed("parts.repeater.grips"));
-    it("Repeater Chambers should not have unused variables", checkIfAllVariablesAreUsed("parts.repeater.chambers"));
+    it(
+        "Repeater Mods should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.repeater.mods"),
+    );
+    it(
+        "Repeater Grips should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.repeater.grips"),
+    );
+    it(
+        "Repeater Chambers should not have unused variables",
+        checkIfAllVariablesAreUsed("parts.repeater.chambers"),
+    );
 
-    it("Omnicells should not have unused variables", checkIfAllVariablesAreUsed("omnicells"));
-    it("Lanterns should not have unused variables", checkIfAllVariablesAreUsed("lanterns"));
+    it(
+        "Omnicells should not have unused variables",
+        checkIfAllVariablesAreUsed("omnicells"),
+    );
+    it(
+        "Lanterns should not have unused variables",
+        checkIfAllVariablesAreUsed("lanterns"),
+    );
 });
